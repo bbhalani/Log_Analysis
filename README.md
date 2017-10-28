@@ -23,7 +23,7 @@ As you explore the data, you may find it useful to take notes! Don't try to memo
 
 To build the reporting tool, you'll need to load the site's data into your local database.
 
-To load the data, cd into the vagrant directory and use the command '''psql -d news -f newsdata.sql.'''
+To load the data, cd into the vagrant directory and use the command ```psql -d news -f newsdata.sql.```
 
 Here's what this command does:
 - psql : the PostgreSQL command line program
@@ -33,7 +33,7 @@ Here's what this command does:
 Running this command will connect to your installed database server and execute the SQL commands in the downloaded file, creating tables and populating them with data.
 
 create following views
-'''sql
+```sql
 CREATE VIEW artbyviews AS
 SELECT a.slug, count(*) AS views
 FROM articles AS a
@@ -42,24 +42,24 @@ ON '/article/' || a.slug = l.path
 WHERE l.status = '200 OK'
 GROUP BY a.slug
 ORDER BY views DESC;
-'''
+```
 
-'''sql
+```sql
 CREATE VIEW errorview AS
 SELECT date(time) AS day,
 count(*) AS error
 FROM log
 WHERE status= '404 NOT FOUND'
 GROUP BY day;
-'''
+```
 
-'''sql
+```sql
 CREATE VIEW totalview AS
 SELECT date(time) AS day,
 count(*) AS total
 FROM log
 GROUP BY day ;
-'''
+```
 run the python log analysis reporting tool
 After the Views have been created, inside the virtual machine run tool.py with -
 python tool.py
